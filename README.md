@@ -1,6 +1,8 @@
-# Svelte-Kit + PayloadCMS + tRPC Turborepo
+# Svelte-Kit + PayloadCMS + tRPC Turborepo + UnoCSS
 
 This is an custom made Turborepo starter.
+
+this project is based/forked by the awesome repo [sk-trpc-payload](https://github.com/HanielU/sk-trpc-payload)
 
 ## What's inside?
 
@@ -16,8 +18,6 @@ Each app is 100% [TypeScript].
 ### Packages
 
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-plugin-svelte` and `eslint-config-prettier`)
-- `dum`: a scripts runner executable written in [Rust]
-- `replacer`: A CLI for replacing strings in files and directories written in [Rust]
 
 ### Utilities
 
@@ -32,11 +32,9 @@ This Turborepo has some additional tools already setup for you:
 This project uses [pnpm].
 
 ```sh
-npx degit HanielU/turbo-sk-payload-trpc my-project # download the project
-
-cd my-project # navigate into the project
-
-pnpm install # install dependencies
+$ git clone https://github.com/koakh/SvelteKitPayloadCMSWithTRPCAndTurborepo.git
+$ cd SvelteKitPayloadCMSWithTRPCAndTurborepo
+$ pnpm i
 ```
 
 ### Running the apps
@@ -44,7 +42,7 @@ pnpm install # install dependencies
 In the project root and run the following command.
 
 ```sh
-pnpm dev
+$ pnpm dev
 ```
 
 This will run both the Svelte-kit and Payload apps in parallel.
