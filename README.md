@@ -2,7 +2,7 @@
 
 This is an custom made Turborepo starter.
 
-this project is based/forked by the awesome repo [sk-trpc-payload](https://github.com/HanielU/sk-trpc-payload)
+this project is based/forked by the awesome repo [sk-trpc-payload](https://github.com/HanielU/sk-trpc-payload), with minimal changes to work on *nix OS, and other small changes 
 
 ## What's inside?
 
