@@ -1,11 +1,11 @@
 // my-preset.ts
-import type { Preset } from "unocss";
-import { handler as h, variantGetParameter } from "@unocss/preset-mini/utils";
+import type { Preset } from 'unocss';
+import { handler as h, variantGetParameter } from '@unocss/preset-mini/utils';
 
 export const myPreset: Preset = {
-  name: "my-preset",
+  name: 'my-preset',
 
-  rules: [["abs", { position: "absolute" }]],
+  rules: [['abs', { position: 'absolute' }]],
 
   shortcuts: [
     [
@@ -13,29 +13,29 @@ export const myPreset: Preset = {
       // to avoid mixups with default flex utilities like flex-wrap
       /^flex-s-(start|center|between|evenly|around|end)(-(start|center|baseline|end))?$/,
       ([, justify, align]) =>
-        `flex justify-${justify} items${align || "-center"}`,
-      { layer: "default" },
+        `flex justify-${justify} items${align || '-center'}`,
+      { layer: 'default' },
     ],
     // use when width and height values are the same
-    [/^square-(.*)$/, ([, v]) => `h-${v} w-${v}`, { layer: "utilities" }],
+    [/^square-(.*)$/, ([, v]) => `h-${v} w-${v}`, { layer: 'utilities' }],
     [
       /^br(-\w+(-\w+)*)?$/, // h - hyphen | v - value
       ([, hAndV]) => {
-        const [, v1, v2] = hAndV?.split("-") || [];
+        const [, v1, v2] = hAndV?.split('-') || [];
         // const vJoined = v.join("-");
         return v2
-          ? `rounded-${v1 + "-" + v2 || v2}`
+          ? `rounded-${v1 + '-' + v2 || v2}`
           : v1
           ? `rounded-${v1}`
-          : "rounded";
+          : 'rounded';
       },
-      { layer: "default" },
+      { layer: 'default' },
     ],
     [
       /^scrollbar-f-(thin)-(.*)$/,
       ([, size, colors]) =>
         `[scrollbar-width:${size}] [scrollbar-color:${colors}]`,
-      { layer: "utilities" },
+      { layer: 'utilities' },
     ],
   ],
 
@@ -44,37 +44,37 @@ export const myPreset: Preset = {
       // adds support for "@min-[width]:class" and "@min-h-[width]:class"
       // or
       // "@min-width:class" and "@min-h-width:class"
-      name: "arbitrary-media-query",
+      name: 'arbitrary-media-query',
       match(matcher, { theme }) {
         // prefix with @ to specify that it's a media query
-        const minVariant = variantGetParameter("@min-", matcher, [":", "-"]);
-        const maxVariant = variantGetParameter("@max-", matcher, [":", "-"]);
-        const minHeightVariant = variantGetParameter("@min-h-", matcher, [
-          ":",
-          "-",
+        const minVariant = variantGetParameter('@min-', matcher, [':', '-']);
+        const maxVariant = variantGetParameter('@max-', matcher, [':', '-']);
+        const minHeightVariant = variantGetParameter('@min-h-', matcher, [
+          ':',
+          '-',
         ]);
-        const maxHeightVariant = variantGetParameter("@max-h-", matcher, [
-          ":",
-          "-",
+        const maxHeightVariant = variantGetParameter('@max-h-', matcher, [
+          ':',
+          '-',
         ]);
 
         // the order that we check the variants is important
         // because we want to match the most specific one
         const matched =
           (minHeightVariant && {
-            type: "min-h",
+            type: 'min-h',
             variant: minHeightVariant,
           }) ||
           (maxHeightVariant && {
-            type: "max-h",
+            type: 'max-h',
             variant: maxHeightVariant,
           }) ||
           (minVariant && {
-            type: "min",
+            type: 'min',
             variant: minVariant,
           }) ||
           (maxVariant && {
-            type: "max",
+            type: 'max',
             variant: maxVariant,
           });
 
@@ -84,38 +84,38 @@ export const myPreset: Preset = {
           // makes sure it either has no brackets or has brackets
           const extractedValue =
             h.bracket(match) ||
-            (!match.startsWith("[") && !match.endsWith("]") && match) ||
-            "";
+            (!match.startsWith('[') && !match.endsWith(']') && match) ||
+            '';
           const endsWithUnit = /^\d+(em|px|rem)$/.test(extractedValue);
           const isOnlyNum = /^\d+$/.test(extractedValue);
 
           if (
             endsWithUnit ||
             isOnlyNum ||
-            theme["breakpoints"][extractedValue]
+            theme['breakpoints'][extractedValue]
           ) {
             return {
               matcher: rest,
-              layer: "utilities",
+              layer: 'utilities',
               handle: (input, next) =>
                 next({
                   ...input,
                   parent: `${
-                    input.parent ? `${input.parent} $$ ` : ""
+                    input.parent ? `${input.parent} $$ ` : ''
                   }@media (${
-                    matched.type == "min"
-                      ? "min-width"
-                      : matched.type == "max"
-                      ? "max-width"
-                      : matched.type == "min-h"
-                      ? "min-height"
-                      : "max-height"
+                    matched.type == 'min'
+                      ? 'min-width'
+                      : matched.type == 'max'
+                      ? 'max-width'
+                      : matched.type == 'min-h'
+                      ? 'min-height'
+                      : 'max-height'
                   }:${
                     endsWithUnit
                       ? extractedValue
                       : isOnlyNum
-                      ? extractedValue + "px"
-                      : theme["breakpoints"][extractedValue]
+                      ? extractedValue + 'px'
+                      : theme['breakpoints'][extractedValue]
                   })`,
                 }),
             };
@@ -124,9 +124,9 @@ export const myPreset: Preset = {
       },
     },
     {
-      name: "firefox-only",
+      name: 'firefox-only',
       match(matcher) {
-        const ffVariant = variantGetParameter("@ff", matcher, [":"]);
+        const ffVariant = variantGetParameter('@ff', matcher, [':']);
         if (ffVariant) {
           const [, rest] = ffVariant;
           return {
@@ -135,7 +135,7 @@ export const myPreset: Preset = {
               next({
                 ...input,
                 parent: `${
-                  input.parent ? `${input.parent} $$ ` : ""
+                  input.parent ? `${input.parent} $$ ` : ''
                 }@-moz-document url-prefix()`,
               }),
           };
@@ -144,11 +144,11 @@ export const myPreset: Preset = {
     },
     matcher => {
       const [m1, m2, m3] = [
-        "scrollbar:",
-        "scrollbar-track:",
-        "scrollbar-thumb:",
+        'scrollbar:',
+        'scrollbar-track:',
+        'scrollbar-thumb:',
       ];
-      let matchedStr = "";
+      let matchedStr = '';
 
       if (matcher.startsWith(m1)) {
         matchedStr = m1;
@@ -164,9 +164,9 @@ export const myPreset: Preset = {
         matcher: matcher.slice(matchedStr.length),
         selector: s =>
           `${s}::-webkit-scrollbar${
-            matchedStr == m2 ? "-track" : matchedStr == m3 ? "-thumb" : ""
+            matchedStr == m2 ? '-track' : matchedStr == m3 ? '-thumb' : ''
           }`,
-        layer: "default",
+        layer: 'default',
       };
     },
   ],
@@ -204,13 +204,13 @@ export function hexToHSL(
     g = 0,
     b = 0;
   if (hex.length === 4) {
-    r = +("0x" + hex[1] + hex[1]);
-    g = +("0x" + hex[2] + hex[2]);
-    b = +("0x" + hex[3] + hex[3]);
+    r = +('0x' + hex[1] + hex[1]);
+    g = +('0x' + hex[2] + hex[2]);
+    b = +('0x' + hex[3] + hex[3]);
   } else if (hex.length === 7) {
-    r = +("0x" + hex[1] + hex[2]);
-    g = +("0x" + hex[3] + hex[4]);
-    b = +("0x" + hex[5] + hex[6]);
+    r = +('0x' + hex[1] + hex[2]);
+    g = +('0x' + hex[3] + hex[4]);
+    b = +('0x' + hex[5] + hex[6]);
   }
 
   // then to HSL

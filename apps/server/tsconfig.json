@@ -9,11 +9,14 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
-    "importsNotUsedAsValues": "error",
     "moduleResolution": "node",
     "paths": {
       "payload/generated-types": ["./src/payload-types.ts"]
-    }
+    },
+    // deprecated
+    // "importsNotUsedAsValues": "error",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "build"],

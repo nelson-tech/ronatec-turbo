@@ -1,59 +1,59 @@
-import type { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from 'payload/types';
 
 const Customers: CollectionConfig = {
-  slug: "customers",
+  slug: 'customers',
   auth: true,
   fields: [
     {
-      name: "firstName",
-      type: "text",
+      name: 'firstName',
+      type: 'text',
       required: true,
     },
     {
-      name: "lastName",
-      type: "text",
+      name: 'lastName',
+      type: 'text',
       required: true,
     },
     {
-      name: "phoneNumber",
-      type: "text",
+      name: 'phoneNumber',
+      type: 'text',
       required: false,
     },
     {
-      name: "dateOfBirth",
-      type: "date",
+      name: 'dateOfBirth',
+      type: 'date',
       required: false,
     },
     {
-      name: "gender",
-      type: "select",
+      name: 'gender',
+      type: 'select',
       hasMany: true,
       options: [
         {
-          label: "Male",
-          value: "male",
+          label: 'Male',
+          value: 'male',
         },
         {
-          label: "Female",
-          value: "female",
+          label: 'Female',
+          value: 'female',
         },
       ],
     },
     {
-      name: "viewPost",
-      type: "relationship",
-      relationTo: "posts",
+      name: 'viewPost',
+      type: 'relationship',
+      relationTo: 'posts',
       hasMany: true,
     },
     {
-      name: "likes",
-      type: "relationship",
-      relationTo: "posts",
+      name: 'likes',
+      type: 'relationship',
+      relationTo: 'posts',
       hasMany: true,
     },
     {
-      name: "likeCount",
-      type: "number",
+      name: 'likeCount',
+      type: 'number',
       defaultValue: 0,
     },
   ],

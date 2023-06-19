@@ -3,9 +3,9 @@
  * BECAUSE THE WEB FOLDER IS BUILT BY THE FRONTEND
  */
 
-import type { NextFunction } from "express";
+import type { NextFunction } from 'express';
 
 export const handler = async (req, res, next: NextFunction) => {
-  console.log("Request received");
+  console.log('Request received');
   next();
 };

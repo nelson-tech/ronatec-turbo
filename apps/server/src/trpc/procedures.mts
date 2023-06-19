@@ -1,6 +1,6 @@
-import superjson from "superjson";
-import type { Context } from "./context.mjs";
-import { initTRPC, TRPCError } from "@trpc/server";
+import superjson from 'superjson';
+import type { Context } from './context.mts';
+import { initTRPC, TRPCError } from '@trpc/server';
 
 const t = initTRPC.context<Context>().create({
   transformer: superjson,
@@ -20,7 +20,7 @@ export const publicProcedure = t.procedure;
 const isAuthed = middleware(({ next, ctx }) => {
   if (!ctx.user?.email) {
     throw new TRPCError({
-      code: "UNAUTHORIZED",
+      code: 'UNAUTHORIZED',
     });
   }
   return next({

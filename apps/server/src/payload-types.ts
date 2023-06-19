@@ -21,7 +21,7 @@ export interface Customer {
   lastName: string;
   phoneNumber?: string;
   dateOfBirth?: string;
-  gender?: ("male" | "female")[];
+  gender?: ('male' | 'female')[];
   country?: string;
   state?: string;
   postalCode?: string;
@@ -58,7 +58,7 @@ export interface Post {
   content?: {
     [k: string]: unknown;
   }[];
-  status?: "draft" | "published";
+  status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
   password?: string;

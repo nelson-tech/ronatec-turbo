@@ -1,22 +1,31 @@
-import * as trpcExpress from "@trpc/server/adapters/express";
-import cors from "cors";
-import express from "express";
-import payload from "payload";
-import { appRouter } from "./trpc/router.mjs";
-import { createContext } from "./trpc/context.mjs";
+import * as trpcExpress from '@trpc/server/adapters/express';
+import cors from 'cors';
+import express from 'express';
+import payload from 'payload';
+import { appRouter } from './trpc/router.mts';
+import { createContext } from './trpc/context.mts';
 
 // NOTE: Just here as a placeholder for sveltekit
-// handler.mjs will be automatically converted to handler\.js (backslash to avoid conversion in comment)
+// handler.js will be automatically converted to handler\.js (backslash to avoid conversion in comment)
 // and is the sveltekit entrypoint
-import { handler } from "./web/handler.mjs";
+import { handler } from './web/handler.mts';
 
 const app = express();
 const port = process.env.PORT || 3000;
+const clientExtraCors = process.env.CLIENT_EXTRA_CORS
+  ? process.env.CLIENT_EXTRA_CORS.split(',')
+  : [];
 
 // add multiple origins to allowlist
 app.use(
   cors({
-    origin: ["http://localhost:5173", process.env.PAYLOAD_PUBLIC_SERVER_URL],
+    origin: [
+      'http://localhost:5173',
+      ...clientExtraCors,
+      process.env.PAYLOAD_PUBLIC_SERVER_URL,
+    ],
+    // requires both on client and server
+    credentials: true,
   })
 );
 
@@ -41,7 +50,7 @@ const start = async () => {
   app.use(payload.authenticate);
 
   app.use(
-    "/trpc",
+    '/trpc',
     trpcExpress.createExpressMiddleware({
       router: appRouter,
       createContext,

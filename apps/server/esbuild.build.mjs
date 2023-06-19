@@ -1,6 +1,6 @@
-import * as esbuild from "esbuild";
-import { readdir } from "fs/promises";
-import { resolve } from "path";
+import * as esbuild from 'esbuild';
+import { readdir } from 'fs/promises';
+import { resolve } from 'path';
 
 async function* getFiles(dir) {
   const dirents = await readdir(dir, { withFileTypes: true });
@@ -16,44 +16,44 @@ async function* getFiles(dir) {
 
 (async () => {
   const stack = [];
-  for await (const f of getFiles("src")) {
+  for await (const f of getFiles('src')) {
     stack.push(f);
   }
 
   const mjsEntres = stack.filter(
     f =>
-      !f.endsWith("types.ts") &&
-      !f.endsWith("config.ts") &&
-      !f.includes("collections") &&
-      !f.includes("access") &&
-      !f.includes("hooks") &&
-      (f.endsWith(".ts") || f.endsWith(".mts"))
+      !f.endsWith('types.ts') &&
+      !f.endsWith('config.ts') &&
+      !f.includes('collections') &&
+      !f.includes('access') &&
+      !f.includes('hooks') &&
+      (f.endsWith('.ts') || f.endsWith('.mts'))
   );
 
   const cjsEntries = stack.filter(
     f =>
-      f.endsWith("config.ts") ||
-      f.includes("collections") ||
-      f.includes("access") ||
-      f.includes("hooks")
+      f.endsWith('config.ts') ||
+      f.includes('collections') ||
+      f.includes('access') ||
+      f.includes('hooks')
   );
 
   await esbuild.build({
     entryPoints: mjsEntres,
-    platform: "node",
-    target: "node16",
-    outdir: "dist",
-    tsconfig: "./tsconfig.json",
-    outExtension: { ".js": ".mjs" },
+    platform: 'node',
+    target: 'node16',
+    outdir: 'dist',
+    tsconfig: './tsconfig.json',
+    outExtension: { '.js': '.mjs' },
   });
 
   await esbuild.build({
     entryPoints: cjsEntries,
-    platform: "node",
-    target: "node16",
-    outdir: "dist",
-    tsconfig: "./tsconfig.json",
-    format: "cjs",
-    outExtension: { ".js": ".cjs" },
+    platform: 'node',
+    target: 'node16',
+    outdir: 'dist',
+    tsconfig: './tsconfig.json',
+    format: 'cjs',
+    outExtension: { '.js': '.cjs' },
   });
 })();

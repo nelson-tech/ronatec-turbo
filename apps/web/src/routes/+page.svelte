@@ -1,5 +1,18 @@
-<!-- Unocss intellisense doesn't work when usng icons unless you download the icon pack -->
+<!-- Unocss intellisense doesn't work when using icons unless you download the icon pack -->
 <!-- https://github.com/unocss/unocss/tree/main/packages/preset-icons -->
+
+<script lang="ts">
+  import { client } from '$lib/trpc';
+
+  let loading = false;
+  let greeting: any;
+  const loadData = async () => {
+    loading = true;
+    // greeting = await client().posts.query();
+    greeting = await client().greeting.query();
+    loading = false;
+  };
+</script>
 
 <svelte:head>
   <title>Sveltekit & Unocss template</title>
@@ -37,6 +50,13 @@
     <div op-30 fw-300 max-w-40ch m="b-2 t--14" text-lg>
       The fastest way to build svelte apps with the Instant on-demand Atomic CSS engine
     </div>
+    <button
+    on:click|preventDefault={loadData}
+      type="button"
+      class="px-4 py-2 m-1 rounded-md text-white transform bg-orange-500 hover:bg-orange-400 focus:outline-nonefocus:bg-orange-400">
+      Load tRPC Test
+    </button>
+    <p op-30>greeting: {greeting}</p>
   </div>
 </div>
 

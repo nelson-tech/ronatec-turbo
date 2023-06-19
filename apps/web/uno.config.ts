@@ -1,4 +1,4 @@
-import extractorSvelte from "@unocss/extractor-svelte";
+import extractorSvelte from '@unocss/extractor-svelte';
 import {
   defineConfig,
   presetAttributify,
@@ -6,8 +6,8 @@ import {
   presetUno,
   transformerDirectives,
   transformerVariantGroup,
-} from "unocss";
-import { myPreset } from "./my-preset";
+} from 'unocss';
+import { myPreset } from './my-preset';
 
 // https://unocss.dev
 export default defineConfig({

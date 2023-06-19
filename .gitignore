@@ -45,3 +45,7 @@ package
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
+
+# custom
+.bak/*
+.bak/exclude.tag

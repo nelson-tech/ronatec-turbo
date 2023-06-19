@@ -1,7 +1,7 @@
-import payload from "payload";
-import user from "./routes/user.mjs";
-import { publicProcedure } from "./procedures.mjs";
-import { router } from "./procedures.mjs";
+import payload from 'payload';
+import user from './routes/user.mts';
+import { publicProcedure } from './procedures.mts';
+import { router } from './procedures.mts';
 
 /* 
   NOTE:
@@ -10,11 +10,11 @@ import { router } from "./procedures.mjs";
 */
 
 export const appRouter = router({
-  greeting: publicProcedure.query(() => "Hello world!"),
+  greeting: publicProcedure.query(() => 'Hello world!'),
 
   posts: publicProcedure.query(async () => {
     const posts = await payload.find({
-      collection: "posts",
+      collection: 'posts',
     });
 
     return posts;

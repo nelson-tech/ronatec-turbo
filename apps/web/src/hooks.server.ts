@@ -1,10 +1,10 @@
-import { trpc } from "$lib/trpc";
-import type { Handle } from "@sveltejs/kit";
+import { client } from '$lib/trpc';
+import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const session = event.cookies.get("payload-token");
+  const session = event.cookies.get('payload-token');
   if (session) {
-    const v = await trpc(event.fetch)
+    const v = await client(event.fetch)
       .user.self.query()
       .catch(() => null);
     console.log(v);
