@@ -1,22 +1,10 @@
 {
   "folders": [
     {
-      "path": "."
-    },
-    {
       "path": "apps/web"
     },
     {
       "path": "apps/server"
-    },
-    {
-      "path": "packages/eslint-config-custom"
-    },
-    {
-      "path": "packages/dum"
-    },
-    {
-      "path": "packages/replacer"
     }
   ]
 }
