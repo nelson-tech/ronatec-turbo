@@ -33,6 +33,8 @@
   "dependencies": {
     "@trpc/client": "^10.29.1",
     "clsx": "^1.2.1",
-    "superjson": "^1.12.3"
+    "superjson": "^1.12.3",
+    "zod": "^3.21.4",
+    "zod-form-data": "^2.0.1"
   }
 }

@@ -1,10 +1,23 @@
 {
   "folders": [
     {
+      "path": "."
+    },
+    {
       "path": "apps/web"
     },
     {
       "path": "apps/server"
     }
-  ]
+  ],
+  "settings": {
+    "cSpell.words": [
+      "clsx",
+      "copyclient",
+      "copyfiles",
+      "iconify",
+      "superjson",
+      "unocss"
+    ]
+  }
 }
