@@ -31,6 +31,7 @@ export const load = async ({ url }) => {
             message: error.message
           };
         });
+        // TODO: add to utils/helpers
         // console.log(`errors: [${JSON.stringify(errors, undefined, 2)}]`);
         const convertErrorsArrayToObject = (errors: { field: string, message: string }[]) => {
           // https://stackoverflow.com/a/49247635

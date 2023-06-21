@@ -48,4 +48,5 @@ package
 
 # custom
 .bak/*
-.bak/exclude.tag
+.temp/*
+!.bak/exclude.tag
