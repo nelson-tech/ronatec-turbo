@@ -12,6 +12,7 @@ export interface Config {
     posts: Post;
     tags: Tag;
     users: User;
+    media: Media;
   };
   globals: {};
 }
@@ -22,30 +23,18 @@ export interface Customer {
   phoneNumber?: string;
   dateOfBirth?: string;
   gender?: ('male' | 'female')[];
-  country?: string;
-  state?: string;
-  postalCode?: string;
-  address?: string;
-  nameOfNextKin?: string;
-  phoneOfNextKin?: string;
-  emailOfNextKin?: string;
-  condition?: string;
-  bloodPressure?: string;
-  bloodSugar?: string;
-  hba1cReading?: string;
-  bodyMassIndex?: string;
-  weight?: string;
-  height?: string;
   viewPost?: string[] | Post[];
   likes?: string[] | Post[];
   likeCount?: number;
+  updatedAt: string;
+  createdAt: string;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
   loginAttempts?: number;
   lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
   password?: string;
 }
 export interface Post {
@@ -59,29 +48,61 @@ export interface Post {
     [k: string]: unknown;
   }[];
   status?: 'draft' | 'published';
-  createdAt: string;
   updatedAt: string;
-  password?: string;
+  createdAt: string;
 }
 export interface User {
   id: string;
   name?: string;
+  updatedAt: string;
+  createdAt: string;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
   loginAttempts?: number;
   lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
   password?: string;
 }
 export interface Category {
   id: string;
   name?: string;
-  password?: string;
 }
 export interface Tag {
   id: string;
   name?: string;
-  password?: string;
+}
+export interface Media {
+  id: string;
+  name?: string;
+  category?: string | Category;
+  tags?: string[] | Tag[];
+  published?: boolean;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
+  sizes?: {
+    thumbnail?: {
+      url?: string;
+      width?: number;
+      height?: number;
+      mimeType?: string;
+      filesize?: number;
+      filename?: string;
+    };
+    sixteenByNineMedium?: {
+      url?: string;
+      width?: number;
+      height?: number;
+      mimeType?: string;
+      filesize?: number;
+      filename?: string;
+    };
+  };
 }

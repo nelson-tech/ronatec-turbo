@@ -6,7 +6,7 @@ if [ ! "${1}" ]; then
   exit 1
 fi
 
-DB="dawn-valley-head-less-cms"
+DB="turborepo-sveltekit-payloadcms"
 DIR=".dbbak"
 # backup file
 FILE="${1}"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DT=$(date +%Y-%m-%d-%H-%M)
-DB="dawn-valley-head-less-cms"
+DB="turborepo-sveltekit-payloadcms"
 DIR=".dbbak"
 FILE="${DT}.tgz"
 COLLECTIONS=( _preferences categories media posts tags users )

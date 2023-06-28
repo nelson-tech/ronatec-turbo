@@ -1,10 +1,11 @@
+import path from 'path';
+import { buildConfig } from 'payload/config';
 import Categories from './collections/Categories';
+import Customers from './collections/Customers';
+import Media from './collections/Media';
 import Posts from './collections/Posts';
 import Tags from './collections/Tags';
 import Users from './collections/Users';
-import Customers from './collections/Customers';
-import path from 'path';
-import { buildConfig } from 'payload/config';
 
 const clientUrls = [
   'http://localhost:5173',
@@ -18,7 +19,7 @@ export default buildConfig({
   },
   cors: clientUrls,
   csrf: clientUrls,
-  collections: [Customers, Categories, Posts, Tags, Users],
+  collections: [Customers, Categories, Posts, Tags, Users, Media],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
