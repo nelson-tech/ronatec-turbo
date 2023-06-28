@@ -4,14 +4,15 @@ import { client } from '$lib/trpc';
 import type { Media } from '@apps/server';
 
 const validationSchema = z.object({
-  s: z.string().trim().min(3).optional(),
-  x: z.string().trim().min(3),
+  s: z.string().trim().min(0).nullable(),
+  // s: z.string().trim().min(3).optional().nullable(),
+  // x: z.string().trim().min(3).optional(),
 });
 
 export const load = async ({ url }) => {
   const s = url.searchParams.get('s');
-  const x = url.searchParams.get('s');
-  const formData = { s, x };
+  // const x = url.searchParams.get('s');
+  const formData = { s/*, x*/ };
   const data = await client().media.query({ s });
   // console.log(`url: [${JSON.stringify(url.searchParams.get('s'), undefined, 2)}]`);
   // console.log(`url.searchParams: [${JSON.stringify(url.search, undefined, 2)}]`);

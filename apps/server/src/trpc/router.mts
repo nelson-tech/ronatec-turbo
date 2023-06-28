@@ -12,7 +12,7 @@ import { z } from 'zod';
 */
 
 const mediaValidationSchema = z.object({
-  s: z.string().trim().min(3).optional(),
+  s: z.string().trim().min(0).nullable()
 });
 
 export const appRouter = router({
@@ -24,11 +24,12 @@ export const appRouter = router({
       // add implicit types
       const media: PaginatedDocs<Media> = await payload.find({
         collection: 'media',
-        where: {
+        where: opts.input.s ? {
           name: {
             contains: opts.input.s,
           },
-        },
+        } : {},
+        // TODO: use pagination data
         limit: 1000,
       });
 

@@ -7,14 +7,14 @@ import data from './data.json';
 // Better to do with a GET form, the load data does it for both cases
 
 const validationSchema = z.object({
-  s: z.string().trim().min(3).optional(),
-  x: z.string().trim().min(3),
+  s: z.optional(z.string().trim().min(3)),
+  // x: z.optional(z.string().trim().min(3)),
 });
 
 export const load = async ({ url }) => {
   const s = url.searchParams.get('s');
-  const x = url.searchParams.get('s');
-  const formData = { s, x };
+  // const x = url.searchParams.get('s');
+  const formData = { s };
   // console.log(`url: [${JSON.stringify(url.searchParams.get('s'), undefined, 2)}]`);
   // console.log(`url.searchParams: [${JSON.stringify(url.search, undefined, 2)}]`);
 
@@ -31,6 +31,7 @@ export const load = async ({ url }) => {
             message: error.message
           };
         });
+
         // TODO: add to utils/helpers
         // console.log(`errors: [${JSON.stringify(errors, undefined, 2)}]`);
         const convertErrorsArrayToObject = (errors: { field: string, message: string }[]) => {
