@@ -3,23 +3,21 @@
   "scripts": {
     "build:no-logs": "dotenv -- turbo run build --output-logs=errors-only",
     "build": "dotenv -- turbo run build",
-    "build:win": "dotenv -- turbo run build:win",
     "dev": "dotenv -- turbo run dev --parallel",
     "dev:web": "dotenv -- turbo run dev --filter=web",
     "dev:server": "dotenv -- turbo run dev --filter=server",
     "preview": "dotenv -- turbo run preview --parallel",
     "start:server": "dotenv -- turbo run start --filter=server",
-    "start:server-win": "dotenv -- turbo run start:win --filter=server",
     "lint": "turbo run lint",
     "format": "prettier --write ."
   },
   "devDependencies": {
     "@apps/web": "workspace:*",
     "dotenv-cli": "^7.2.1",
-    "eslint": "^8.42.0",
+    "eslint": "^8.44.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "prettier-plugin-svelte": "^2.10.1",
-    "turbo": "^1.10.3"
+    "turbo": "^1.10.7"
   }
 }

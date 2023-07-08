@@ -7,78 +7,230 @@
 
 export interface Config {
   collections: {
-    customers: Customer;
-    categories: Category;
-    posts: Post;
-    tags: Tag;
-    users: User;
+    pages: Page;
     media: Media;
+    products: Product;
+    categories: Category;
+    users: User;
+    carts: Cart;
+    orders: Order;
   };
-  globals: {};
+  globals: {
+    menus: Menu;
+    settings: Settings;
+  };
 }
-export interface Customer {
+export interface Page {
   id: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber?: string;
-  dateOfBirth?: string;
-  gender?: ('male' | 'female')[];
-  viewPost?: string[] | Post[];
-  likes?: string[] | Post[];
-  likeCount?: number;
-  updatedAt: string;
-  createdAt: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
-}
-export interface Post {
-  id: string;
-  title?: string;
-  author?: string | User;
+  title: string;
   publishedDate?: string;
-  category?: string | Category;
-  tags?: string[] | Tag[];
-  content?: {
-    [k: string]: unknown;
+  hero: {
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    richText: {
+      [k: string]: unknown;
+    }[];
+    links?: {
+      link: NavLink;
+      id?: string;
+    }[];
+    media: string | Media;
+  };
+  layout: (
+    | {
+        ctaBackgroundColor?: 'white' | 'black';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        links?: {
+          link: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
+    | {
+        columns?: {
+          size?: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          richText: {
+            [k: string]: unknown;
+          }[];
+          enableLink?: boolean;
+          link?: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        mediaBlockBackgroundColor?: 'white' | 'black';
+        position?: 'default' | 'fullscreen';
+        media: string | Media;
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        introContent: {
+          [k: string]: unknown;
+        }[];
+        populateBy?: 'collection' | 'selection';
+        relationTo?: 'products';
+        categories?: string[] | Category[];
+        limit?: number;
+        selectedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocsTotal?: number;
+        id?: string;
+        blockName?: string;
+        blockType: 'archive';
+      }
+  )[];
+  slug?: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface NavLink {
+  type?: 'reference' | 'custom';
+  reference:
+    | {
+        value: string | Page;
+        relationTo: 'pages';
+      }
+    | {
+        value: string | Product;
+        relationTo: 'products';
+      };
+  url: string;
+  label: string;
+  appearance?: 'default' | 'primary' | 'secondary';
+  newTab?: boolean;
+  megaMenu?: boolean;
+}
+export interface Product {
+  id: string;
+  title: string;
+  publishedDate?: string;
+  shortDescription?: string;
+  layout: (
+    | {
+        ctaBackgroundColor?: 'white' | 'black';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        links?: {
+          link: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
+    | {
+        columns?: {
+          size?: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          richText: {
+            [k: string]: unknown;
+          }[];
+          enableLink?: boolean;
+          link?: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        mediaBlockBackgroundColor?: 'white' | 'black';
+        position?: 'default' | 'fullscreen';
+        media: string | Media;
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        introContent: {
+          [k: string]: unknown;
+        }[];
+        populateBy?: 'collection' | 'selection';
+        relationTo?: 'products';
+        categories?: string[] | Category[];
+        limit?: number;
+        selectedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocsTotal?: number;
+        id?: string;
+        blockName?: string;
+        blockType: 'archive';
+      }
+  )[];
+  gallery?: {
+    image?: string | Media;
+    id?: string;
   }[];
-  status?: 'draft' | 'published';
+  variations?: {
+    name?: string;
+    slug?: string;
+    options?: {
+      label?: string;
+      sku?: string;
+      id?: string;
+    }[];
+    id?: string;
+  }[];
+  hasVariation?: boolean;
+  wc?: {
+    title?: string;
+  };
+  sku?: string;
+  categories?: string[] | Category[];
+  slug?: string;
+  featuredImage?: string | Media;
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
-}
-export interface User {
-  id: string;
-  name?: string;
-  updatedAt: string;
-  createdAt: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
-}
-export interface Category {
-  id: string;
-  name?: string;
-}
-export interface Tag {
-  id: string;
-  name?: string;
+  _status?: 'draft' | 'published';
 }
 export interface Media {
   id: string;
-  name?: string;
-  category?: string | Category;
-  tags?: string[] | Tag[];
-  published?: boolean;
+  alt: string;
+  caption?: {
+    [k: string]: unknown;
+  }[];
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -88,7 +240,7 @@ export interface Media {
   width?: number;
   height?: number;
   sizes?: {
-    thumbnail?: {
+    square?: {
       url?: string;
       width?: number;
       height?: number;
@@ -105,4 +257,165 @@ export interface Media {
       filename?: string;
     };
   };
+}
+export interface Category {
+  id: string;
+  title?: string;
+  slug?: string;
+  image?: string | Media;
+  parent?: string | Category;
+  shortDescription?: string;
+  layout?: {
+    columns?: {
+      size?: 'oneThird' | 'half' | 'twoThirds' | 'full';
+      richText: {
+        [k: string]: unknown;
+      }[];
+      enableLink?: boolean;
+      link?: NavLink;
+      id?: string;
+    }[];
+    id?: string;
+    blockName?: string;
+    blockType: 'content';
+  }[];
+  breadcrumbs?: {
+    doc?: string | Category;
+    url?: string;
+    label?: string;
+    id?: string;
+  }[];
+  wc?: {
+    wc_id?: number;
+    name?: string;
+    slug?: string;
+    description?: string;
+    parent?: number;
+    count?: number;
+    image?: {
+      wc_id?: number;
+      src?: string;
+      thumbnail?: string;
+      srcset?: string;
+      sizes?: string;
+      name?: string;
+      alt?: string;
+    };
+    review_count?: number;
+    permalink?: string;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Meta {
+  title?: string;
+  description?: string;
+  image?: string | Media;
+}
+export interface User {
+  id: string;
+  name?: string;
+  roles?: ('admin' | 'customer')[];
+  purchases?: string[] | Product[];
+  cart?: string | Cart;
+  updatedAt: string;
+  createdAt: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
+}
+export interface Cart {
+  id: string;
+  items?: {
+    product?: string | Product;
+    quantity?: number;
+    id?: string;
+  }[];
+  count?: number;
+  user?: string | User;
+  lastEdit?: number;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Order {
+  id: string;
+  orderedBy?: {
+    user?: string | User;
+    name?: string;
+    email?: string;
+  };
+  items?: {
+    product?: string | Product;
+    title?: string;
+    quantity?: number;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
+}
+export interface Menu {
+  id: string;
+  mainMenu: {
+    links?: {
+      link: NavLink;
+      children?: {
+        link: NavLink;
+        children?: {
+          link: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+      }[];
+      id?: string;
+    }[];
+  };
+  mobileMenu: {
+    links?: {
+      link: NavLink;
+      children?: {
+        link: NavLink;
+        children?: {
+          link: NavLink;
+          id?: string;
+        }[];
+        id?: string;
+      }[];
+      id?: string;
+    }[];
+  };
+  footerMenu: {
+    links?: {
+      link: NavLink;
+      id?: string;
+    }[];
+  };
+  updatedAt?: string;
+  createdAt?: string;
+}
+export interface Settings {
+  id: string;
+  logos: {
+    main?: string | Media;
+    favIcon?: string | Media;
+  };
+  colors: {
+    primary: string;
+    secondary: string;
+  };
+  updatedAt?: string;
+  createdAt?: string;
 }

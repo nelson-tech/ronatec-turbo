@@ -8,8 +8,11 @@
     "Entres",
     "iconify",
     "outdir",
+    "payloadcms",
     "precompress",
+    "ronatec",
     "superjson",
+    "trpc",
     "unocss"
   ]
 }
